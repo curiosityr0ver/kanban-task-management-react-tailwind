@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import EmptyBoard from './components/EmptyBoard';
+import HomePage from "./components/HomePage";
+import Project from "./components/Project";
 import boardsSlice from "./redux/boardsSlice";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
@@ -13,27 +15,36 @@ function App() {
   if (!activeBoard && boards.length > 0)
     dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
   return (
-    <div className=" overflow-hidden  overflow-x-scroll">
-      <>
-        {boards.length > 0 ?
-        <>
-        <Header
-          setIsBoardModalOpen={setIsBoardModalOpen}
-          isBoardModalOpen={isBoardModalOpen}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/task-view" element=
+          {
+            <div className=" overflow-hidden  overflow-x-scroll">
+              <Header
+                setIsBoardModalOpen={setIsBoardModalOpen}
+                isBoardModalOpen={isBoardModalOpen}
+              />
+              <Home
+                setIsBoardModalOpen={setIsBoardModalOpen}
+                isBoardModalOpen={isBoardModalOpen}
+              />
+            </div>
+          }
         />
-        <Home
-          setIsBoardModalOpen={setIsBoardModalOpen}
-          isBoardModalOpen={isBoardModalOpen}
+        <Route path="/" element=
+          {
+            <HomePage />
+          }
         />
-        </>
-        :
-        <>
-          <EmptyBoard type='add'/>
-        </>
-      }
-        
-      </>
-    </div>
+        <Route path="/dashboard" element=
+          {
+            <Project />
+          }
+        />
+      </Routes>
+
+    </BrowserRouter>
+
   );
 }
 

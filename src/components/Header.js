@@ -19,7 +19,7 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
   const dispatch = useDispatch();
-  
+
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
 
@@ -89,17 +89,6 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
           >
             +
           </button>
-
-          <img
-            onClick={() => {
-              setBoardType("edit");
-              setOpenDropdown(false)
-              setIsElipsisMenuOpen((prevState) => !prevState);
-            }}
-            src={elipsis}
-            alt="elipsis"
-            className=" cursor-pointer h-6"
-          />
           {isElipsisMenuOpen && (
             <ElipsisMenu
               type="Boards"

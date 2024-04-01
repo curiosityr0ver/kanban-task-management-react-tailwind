@@ -17,15 +17,15 @@ function Column({ colIndex }) {
     "bg-sky-500",
   ];
 
-  
+
 
   const dispatch = useDispatch();
-  const [color, setColor] = useState(null)
+  const [color, setColor] = useState(null);
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
   const col = board.columns.find((col, i) => i === colIndex);
   useEffect(() => {
-    setColor(shuffle(colors).pop())
+    setColor(shuffle(colors).pop());
   }, [dispatch]);
 
 
@@ -50,15 +50,17 @@ function Column({ colIndex }) {
     <div
       onDrop={handleOnDrop}
       onDragOver={handleOnDragOver}
-      className="scrollbar-hide   mx-5 pt-[90px] min-w-[280px] "
+      className="mx-15 pl-[5px] pt-[16px] mt-[90px] min-w-[290px] bg-gray-200 rounded-lg"
     >
-      <p className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
+      <p className=" font-bold flex  items-center  gap-1 text-[#828fa3]">
         <div className={`rounded-full w-4 h-4 ${color} `} />
-        {col.name} ({col.tasks.length})
+        {col.name}<span className="text-gray-600">{col.tasks.length}</span>
       </p>
 
       {col.tasks.map((task, index) => (
+        // <div style={{ backgroundColor: "red", height: "100px" }}></div>
         <Task key={index} taskIndex={index} colIndex={colIndex} />
+
       ))}
     </div>
   );

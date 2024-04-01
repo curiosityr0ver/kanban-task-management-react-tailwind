@@ -9,7 +9,7 @@ import boardsSlice from "../redux/boardsSlice";
 
 
 function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
@@ -42,10 +42,9 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
         <div className=" dropdown-borad  ">
           {boards.map((board, index) => (
             <div
-              className={` flex items-baseline space-x-2 px-5 py-4  ${
-                board.isActive &&
+              className={` flex items-baseline space-x-2 px-5 py-4  ${board.isActive &&
                 " bg-[#635fc7] rounded-r-full text-white mr-8 "
-              } `}
+                } `}
               key={index}
               onClick={() => {
                 dispatch(boardsSlice.actions.setBoardActive({ index }));
@@ -56,12 +55,12 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
             </div>
           ))}
 
-          <div 
-          onClick={() => {
-            setIsBoardModalOpen(true);
-            setOpenDropdown(false)
-          }}
-          className=" flex items-baseline space-x-2  text-[#635fc7] px-5 py-4  ">
+          <div
+            onClick={() => {
+              setIsBoardModalOpen(true);
+              setOpenDropdown(false);
+            }}
+            className=" flex items-baseline space-x-2  text-[#635fc7] px-5 py-4  ">
             <img src={boardIcon} className="   filter-white  h-4 " />
             <p className=" text-lg font-bold  ">Create New Board </p>
           </div>
@@ -72,15 +71,13 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
             <Switch
               checked={darkSide}
               onChange={toggleDarkMode}
-              className={`${
-                darkSide ? "bg-[#635fc7]" : "bg-gray-200"
-              } relative inline-flex h-6 w-11 items-center rounded-full`}
+              className={`${darkSide ? "bg-[#635fc7]" : "bg-gray-200"
+                } relative inline-flex h-6 w-11 items-center rounded-full`}
             >
               <span className="sr-only">Enable notifications</span>
               <span
-                className={`${
-                  darkSide ? "translate-x-6" : "translate-x-1"
-                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                className={`${darkSide ? "translate-x-6" : "translate-x-1"
+                  } inline-block h-4 w-4 transform rounded-full bg-white transition`}
               />
             </Switch>
 

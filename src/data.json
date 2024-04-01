@@ -5,7 +5,7 @@
       "isActive" : false,
       "columns": [
         {
-          "name": "Todo",
+          "name": "TO DO",
           "tasks": [
             {
               "title": "Build UI for onboarding flow",
@@ -70,7 +70,7 @@
           ]
         },
         {
-          "name": "Doing",
+          "name": "IN PROGRESS",
           "tasks": [
             {
               "title": "Design settings and search pages",
@@ -181,7 +181,118 @@
           ]
         },
         {
-          "name": "Done",
+          "name": "IN QA",
+          "tasks": [
+            {
+              "title": "Design settings and search pages",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Settings - Account page",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Settings - Billing page",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Search page",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "Add account management endpoints",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Upgrade plan",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Cancel plan",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Update payment method",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "Design onboarding flow",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Sign up page",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Sign in page",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Welcome page",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "Add search enpoints",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Add search endpoint",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Define search filters",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "Add authentication endpoints",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Define user model",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Add auth endpoints",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "Research pricing points of various competitors and trial different business models",
+              "description": "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Research competitor pricing and business models",
+                  "isCompleted": true
+                },
+                {
+                  "title": "Outline a business model that works for our solution",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Talk to potential customers about our proposed solution and ask for fair price expectancy",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DONE",
           "tasks": [
             {
               "title": "Conduct 5 wireframe tests",
