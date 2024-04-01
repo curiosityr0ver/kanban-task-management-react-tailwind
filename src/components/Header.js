@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Logo from "../assets/logo-mobile.svg";
 import iconDown from "../assets/icon-chevron-down.svg";
 import iconUp from "../assets/icon-chevron-up.svg";
@@ -7,9 +7,10 @@ import HeaderDropDown from "./HeaderDropDown";
 import ElipsisMenu from "./ElipsisMenu";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
+import { AppContext } from "../context/AppContext";
 
 function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -17,11 +18,11 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
   const [boardType, setBoardType] = useState("add");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const { projects, activeProject, tasks } = useContext(AppContext);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive);
+  const currentProject = projects[activeProject];
 
   const onDropdownClick = () => {
     setOpenDropdown((state) => !state);
@@ -38,15 +39,15 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
     setIsElipsisMenuOpen(false);
   };
 
-  const onDeleteBtnClick = (e) => {
-    if (e.target.textContent === "Delete") {
-      dispatch(boardsSlice.actions.deleteBoard());
-      dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
-      setIsDeleteModalOpen(false);
-    } else {
-      setIsDeleteModalOpen(false);
-    }
-  };
+  // const onDeleteBtnClick = (e) => {
+  //   if (e.target.textContent === "Delete") {
+  //     dispatch(boardsSlice.actions.deleteBoard());
+  //     dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
+  //     setIsDeleteModalOpen(false);
+  //   } else {
+  //     setIsDeleteModalOpen(false);
+  //   }
+  // };
 
   return (
     <div className=" p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0 ">
@@ -59,7 +60,7 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
           </h3>
           <div className=" flex items-center ">
             <h3 className=" truncate max-w-[200px] md:text-2xl text-xl font-bold md:ml-20 font-sans  ">
-              {board.name}
+              {currentProject.name}
             </h3>
             <img
               src={openDropdown ? iconUp : iconDown}
@@ -113,21 +114,21 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
         />
       )}
 
-      {isBoardModalOpen && (
+      {/* {isBoardModalOpen && (
         <AddEditBoardModal
           setBoardType={setBoardType}
           type={boardType}
           setIsBoardModalOpen={setIsBoardModalOpen}
         />
-      )}
-      {isDeleteModalOpen && (
+      )} */}
+      {/* {isDeleteModalOpen && (
         <DeleteModal
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           type="board"
-          title={board.name}
+          title={currentProject.name}
           onDeleteBtnClick={onDeleteBtnClick}
         />
-      )}
+      )} */}
     </div>
   );
 }

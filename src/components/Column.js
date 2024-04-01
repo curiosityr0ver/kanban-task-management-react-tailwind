@@ -1,6 +1,6 @@
-import { shuffle } from "lodash";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { AppContext } from "../context/AppContext";
 import boardsSlice from "../redux/boardsSlice";
 import Task from "./Task";
 
@@ -18,27 +18,35 @@ function Column({ colIndex }) {
   ];
 
 
-
   const dispatch = useDispatch();
-  const [color, setColor] = useState(null);
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const col = board.columns.find((col, i) => i === colIndex);
-  useEffect(() => {
-    setColor(shuffle(colors).pop());
-  }, [dispatch]);
-
+  const { projects, tasks, activeProject, columns, dragTask } = useContext(AppContext);
+  const board = projects[activeProject];
+  const col = columns.find((col, i) => i === colIndex);
+  const relevantTasks = tasks.filter(task => task.projectId === activeProject && task.status === col);
 
 
   const handleOnDrop = (e) => {
     const { prevColIndex, taskIndex } = JSON.parse(
       e.dataTransfer.getData("text")
     );
+    const statusMap = [
+      "TO DO",
+      "IN PROGRESS",
+      "IN QA",
+      "DONE",
+    ];
+    console.log(colIndex, prevColIndex, taskIndex);
+    // console.log(statusMap[colIndex], statusMap[prevColIndex], taskIndex);
+    const filteredTasks = tasks.filter(task => task.projectId === activeProject);
+    console.log(filteredTasks.filter(task => task.status === statusMap[colIndex]));
+    console.log(filteredTasks.filter(task => task.status === statusMap[prevColIndex]));
+
 
     if (colIndex !== prevColIndex) {
-      dispatch(
-        boardsSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
-      );
+      dragTask(colIndex, prevColIndex, taskIndex);
+      // dispatch(
+      //   boardsSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
+      // );
     }
   };
 
@@ -53,14 +61,14 @@ function Column({ colIndex }) {
       className="mx-15 pl-[5px] pt-[16px] mt-[90px] min-w-[290px] bg-gray-200 rounded-lg"
     >
       <p className=" font-bold flex  items-center  gap-1 text-[#828fa3]">
-        <div className={`rounded-full w-4 h-4 ${color} `} />
-        {col.name}<span className="text-gray-600">{col.tasks.length}</span>
+        <div className={`rounded-full w-4 h-4 ${colors[Math.floor(Math.random() * colors.length)]} `} />
+        {col}<span className="text-gray-600">
+          {relevantTasks.length}
+        </span>
       </p>
 
-      {col.tasks.map((task, index) => (
-        // <div style={{ backgroundColor: "red", height: "100px" }}></div>
+      {relevantTasks.map((task, index) => (
         <Task key={index} taskIndex={index} colIndex={colIndex} />
-
       ))}
     </div>
   );

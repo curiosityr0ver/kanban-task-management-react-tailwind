@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useContext } from "react";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import Column from "./Column";
 import Sidebar from "./Sidebar";
+import { AppContext } from "../context/AppContext";
+
 
 function Home() {
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
   ]);
-
+  const { projects, columns } = useContext(AppContext);
+  // console.log(columns);
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowSize([window.innerWidth, window.innerHeight]);
@@ -21,13 +23,7 @@ function Home() {
       window.removeEventListener("resize", handleWindowResize);
     };
   });
-
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
-
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const columns = board.columns;
-
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
   return (
